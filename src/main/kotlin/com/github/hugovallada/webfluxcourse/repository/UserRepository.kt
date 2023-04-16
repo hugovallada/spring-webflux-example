@@ -8,6 +8,7 @@ import reactor.core.publisher.Mono
 @Repository
 class UserRepository(private val mongoTemplate: ReactiveMongoTemplate) {
 
-	fun save(user: User): Mono<User> = mongoTemplate.save(user)
+	fun save(user: User): Mono<User> = mongoTemplate.save(user).also { it.subscribe()  }
+
 
 }
