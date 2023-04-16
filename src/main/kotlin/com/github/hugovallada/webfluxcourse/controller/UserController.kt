@@ -3,6 +3,7 @@ package com.github.hugovallada.webfluxcourse.controller
 import com.github.hugovallada.webfluxcourse.api.contract.UserAPI
 import com.github.hugovallada.webfluxcourse.api.model.request.UserRequest
 import com.github.hugovallada.webfluxcourse.api.model.response.UserResponse
+import com.github.hugovallada.webfluxcourse.service.FindAll
 import com.github.hugovallada.webfluxcourse.service.SaveUser
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -13,10 +14,10 @@ import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/users")
-class UserController(private val saveUser: SaveUser): UserAPI {
+class UserController(private val saveUserService: SaveUser, private val findAllService: FindAll): UserAPI {
 
 	override fun save(request: UserRequest): ResponseEntity<Mono<Unit>> {
-		saveUser(request)
+		saveUserService(request)
 		return ResponseEntity.status(HttpStatus.CREATED)
 			.body(Mono.empty())
 	}
@@ -26,7 +27,9 @@ class UserController(private val saveUser: SaveUser): UserAPI {
 	}
 
 	override fun findAll(): ResponseEntity<Flux<UserResponse>> {
-		TODO("Not yet implemented")
+		return ResponseEntity.ok().body(
+			findAllService().map { UserResponse.from(it) }
+		)
 	}
 
 	override fun update(id: String, request: UserRequest): ResponseEntity<Mono<UserResponse>> {

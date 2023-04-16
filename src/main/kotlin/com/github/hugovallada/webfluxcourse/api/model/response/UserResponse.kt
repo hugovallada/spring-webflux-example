@@ -10,7 +10,7 @@ data class UserResponse(
 ) {
 	companion object {
 		fun from(user: User) = UserResponse(
-			id = user.id, name = user.name,
+			id = user.id.toHexString(), name = user.name,
 			email = user.email, password = user.password
 		)
 	}
