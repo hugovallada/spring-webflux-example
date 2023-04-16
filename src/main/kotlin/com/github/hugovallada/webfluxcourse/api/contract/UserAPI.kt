@@ -1,18 +1,13 @@
 package com.github.hugovallada.webfluxcourse.api.contract
 
-import com.github.hugovallada.webfluxcourse.api.model.UserRequest
-import com.github.hugovallada.webfluxcourse.api.model.UserResponse
+import com.github.hugovallada.webfluxcourse.api.model.request.UserRequest
+import com.github.hugovallada.webfluxcourse.api.model.response.UserResponse
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-interface UserController {
+interface UserAPI {
 
 	@PostMapping
 	fun save(@RequestBody request: UserRequest): ResponseEntity<Mono<Unit>>
