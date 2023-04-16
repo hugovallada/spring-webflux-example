@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document
 class User(
 	@Id
-	val id: String,
+	val id: String = "",
 	val name: String,
 	@Indexed(unique = true)
 	val email: String,
